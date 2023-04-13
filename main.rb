@@ -11,10 +11,13 @@ class Main
 
   def initialize(file_path)
     @file_path = file_path
+    @file_content_lines = read_and_split_file(file_path)
   end
 
   def generate_receipt_list
-    fetch_lines_and_initialize_receipt.each do |line|
+    receipt = Receipt.new(header)
+    remove_header!
+    file_content_lines.each do |line|
       product_translated = ProductTranslator.extract_product_details(line)
       product = Product.new(
         quantity: product_translated.quantity,
@@ -28,17 +31,22 @@ class Main
 
   private
 
-  def fetch_lines_and_initialize_receipt
-    input_content = File.read(file_path)
-    puts input_content
+  def read_and_split_file(file_path)
+    content = File.read(file_path)
+    puts content
     puts '-----------------'
-    lines = input_content.split("\n")
-    header = lines.first
-    header['Input'] = 'Output'
-    lines.shift
-    @receipt = Receipt.new(header)
-    lines
+    content.split("\n")
   end
 
-  attr_reader :file_path, :receipt
+  def header
+    header = file_content_lines.first
+    header['Input'] = 'Output'
+    header
+  end
+
+  def remove_header!
+    file_content_lines.shift
+  end
+
+  attr_reader :file_path, :file_content_lines
 end
