@@ -3,16 +3,16 @@
 require 'ostruct'
 
 class ProductTranslator
-  def self.extract_product_details(product_line)
-    new(product_line).extract_product_details
+  def self.extract_product_details(product_row)
+    new(product_row).extract_product_details
   end
 
-  def initialize(product_line)
-    @product_line = product_line
+  def initialize(product_row)
+    @product_row = product_row
   end
 
   def extract_product_details
-    quantity_and_name, price = product_line.split(' at ')
+    quantity_and_name, price = product_row.split(' at ')
     quantity_and_name_array = quantity_and_name.split(' ')
     quantity = quantity_and_name_array.first
     quantity_and_name_array.shift
@@ -26,5 +26,5 @@ class ProductTranslator
 
   private
 
-  attr_reader :product_line
+  attr_reader :product_row
 end

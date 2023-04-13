@@ -10,14 +10,14 @@ class Main
 
   def initialize(file_path)
     @file_path = file_path
-    @file_content_lines = read_and_split_file(file_path)
+    @file_content_rows = read_and_split_file(file_path)
   end
 
   def generate_receipt_list
     receipt = Receipt.new(header)
     remove_header!
-    file_content_lines.each do |line|
-      product = ProductFactory.create_product(line)
+    file_content_rows.each do |row|
+      product = ProductFactory.create_product(row)
       receipt.add_product(product)
     end
     receipt.print
@@ -33,14 +33,14 @@ class Main
   end
 
   def header
-    header = file_content_lines.first
+    header = file_content_rows.first
     header['Input'] = 'Output'
     header
   end
 
   def remove_header!
-    file_content_lines.shift
+    file_content_rows.shift
   end
 
-  attr_reader :file_path, :file_content_lines
+  attr_reader :file_path, :file_content_rows
 end

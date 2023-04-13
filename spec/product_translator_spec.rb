@@ -4,9 +4,9 @@ require './product_translator'
 
 RSpec.describe ProductTranslator do
   describe '.extract_product_details' do
-    subject(:product_translated) { described_class.extract_product_details(product_line) }
+    subject(:product_translated) { described_class.extract_product_details(product_row) }
 
-    let(:product_line) { '3 imported boxes of chocolates at 11.25' }
+    let(:product_row) { '3 imported boxes of chocolates at 11.25' }
 
     it 'extracts product details' do
       expect(product_translated.quantity).to eq(3)
