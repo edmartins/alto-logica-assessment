@@ -15,7 +15,7 @@ class Main
 
   def generate_receipt_list
     fetch_lines_and_initialize_receipt.each do |line|
-      product_translated = ProductTranslator.translate(line)
+      product_translated = ProductTranslator.extract_product_details(line)
       product = Product.new(
         quantity: product_translated.quantity,
         name: product_translated.name,

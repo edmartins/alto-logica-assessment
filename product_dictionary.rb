@@ -10,7 +10,7 @@ module ProductDictionary
     medical: MEDICAL_KEYWORDS
   }.freeze
 
-  def type_of(name)
+  def product_type(name)
     product_type = :other
     ALL_KEYWORDS.each do |type, keywords|
       has_keyword = keywords.any? { |keyword| name.include?(keyword) }

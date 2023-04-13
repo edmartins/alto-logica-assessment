@@ -3,15 +3,15 @@
 require 'ostruct'
 
 class ProductTranslator
-  def self.translate(product_line)
-    new(product_line).translate
+  def self.extract_product_details(product_line)
+    new(product_line).extract_product_details
   end
 
   def initialize(product_line)
     @product_line = product_line
   end
 
-  def translate
+  def extract_product_details
     quantity_and_name, price = product_line.split(' at ')
     quantity_and_name_array = quantity_and_name.split(' ')
     quantity = quantity_and_name_array.first

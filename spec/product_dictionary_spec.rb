@@ -5,8 +5,8 @@ require './product_dictionary'
 class ProductDictionaryTest
   include ProductDictionary
 
-  def test_type_of(name)
-    type_of(name)
+  def test_product_type(name)
+    product_type(name)
   end
 
   def test_imported?(name)
@@ -15,8 +15,8 @@ class ProductDictionaryTest
 end
 
 RSpec.describe ProductDictionary do
-  describe '.type_of' do
-    subject(:test_class) { ProductDictionaryTest.new.test_type_of(name) }
+  describe '.product_type' do
+    subject(:test_class) { ProductDictionaryTest.new.test_product_type(name) }
 
     context 'when name is book' do
       let(:name) { 'book' }

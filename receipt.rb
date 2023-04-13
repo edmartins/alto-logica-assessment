@@ -16,7 +16,7 @@ class Receipt
     total = 0
     receipt << header
     products.each do |product|
-      receipt << product.output_line
+      receipt << product.formatted_output
       sales_taxes += product.tax
       total += product.total_price
     end

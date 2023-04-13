@@ -11,13 +11,13 @@ class Product
     @quantity = quantity
     @name = name
     @price = price
-    @type = type_of(name)
+    @type = product_type(name)
     @is_imported = imported?(name)
     @tax = calculate_tax
     @total_price = (quantity * (price + tax)).round(2)
   end
 
-  def output_line
+  def formatted_output
     "#{quantity} #{name}: #{format('%.2f', total_price)}"
   end
 

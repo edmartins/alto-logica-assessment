@@ -3,8 +3,8 @@
 require './product'
 
 RSpec.describe Product do
-  describe '#output_line' do
-    subject { product.output_line }
+  describe '#formatted_output' do
+    subject { product.formatted_output }
 
     context 'when book' do
       let(:product) { described_class.new(quantity: 2, name: 'book', price: 12.49) }

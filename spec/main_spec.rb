@@ -24,7 +24,7 @@ RSpec.describe Main do
 
     before do
       allow(Receipt).to receive(:new).and_return(receipt)
-      allow(ProductTranslator).to receive(:translate).and_return(product_translated)
+      allow(ProductTranslator).to receive(:extract_product_details).and_return(product_translated)
       allow(Product).to receive(:new).and_return(product)
       allow(receipt).to receive(:add_product)
       allow(receipt).to receive(:print).and_return(print_response)
