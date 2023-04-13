@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require './receipt'
-require './product'
-require './product_translator'
+require './product_factory'
 
 class Main
   def self.generate_receipt_list(file_path)
@@ -18,12 +17,7 @@ class Main
     receipt = Receipt.new(header)
     remove_header!
     file_content_lines.each do |line|
-      product_translated = ProductTranslator.extract_product_details(line)
-      product = Product.new(
-        quantity: product_translated.quantity,
-        name: product_translated.name,
-        price: product_translated.price
-      )
+      product = ProductFactory.create_product(line)
       receipt.add_product(product)
     end
     receipt.print

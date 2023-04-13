@@ -2,8 +2,7 @@
 
 require './main'
 require './receipt'
-require './product'
-require './product_translator'
+require './product_factory'
 
 RSpec.describe Main do
   describe '.generate_receipt_list' do
@@ -11,7 +10,6 @@ RSpec.describe Main do
 
     let(:file_path) { 'spec/test_input1' }
     let(:receipt) { instance_double(Receipt) }
-    let(:product_translated) { double('ProductTranslator', quantity: 1, name: 'book', price: 10.5) }
     let(:product) { instance_double(Product) }
     let(:print_response) do
       <<~RECEIPT_LIST
@@ -24,15 +22,14 @@ RSpec.describe Main do
 
     before do
       allow(Receipt).to receive(:new).and_return(receipt)
-      allow(ProductTranslator).to receive(:extract_product_details).and_return(product_translated)
-      allow(Product).to receive(:new).and_return(product)
+      allow(ProductFactory).to receive(:create_product).and_return(product)
       allow(receipt).to receive(:add_product)
       allow(receipt).to receive(:print).and_return(print_response)
     end
 
     it 'prints response' do
       is_expected.to eq(print_response)
-      expect(Product).to have_received(:new).with(quantity: 1, name: 'book', price: 10.5)
+      expect(ProductFactory).to have_received(:create_product).with('1 book at 10.5')
       expect(receipt).to have_received(:add_product).with(product)
     end
   end
