@@ -1,24 +1,23 @@
 # frozen_string_literal: true
 
-require './receipt'
-require './product_factory'
+require './receipt_generator'
 
 class Main
-  def self.generate_receipt_list(file_path)
-    new(file_path).generate_receipt_list
+  def self.generate_receipt_list(file_path, receipt = ReceiptGenerator.new)
+    new(file_path, receipt).generate_receipt_list
   end
 
-  def initialize(file_path)
+  def initialize(file_path, receipt = ReceiptGenerator.new)
     @file_path = file_path
+    @receipt = receipt
     @file_content_rows = read_and_split_file(file_path)
   end
 
   def generate_receipt_list
-    receipt = Receipt.new(header)
+    receipt.create(header)
     remove_header!
     file_content_rows.each do |row|
-      product = ProductFactory.create_product(row)
-      receipt.add_product(product)
+      receipt.add_product(row)
     end
     receipt.print
   end
@@ -42,5 +41,5 @@ class Main
     file_content_rows.shift
   end
 
-  attr_reader :file_path, :file_content_rows
+  attr_reader :file_path, :receipt, :file_content_rows
 end

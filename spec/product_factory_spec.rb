@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require './product_factory'
-require './product_translator'
-require './product'
 
 RSpec.describe ProductFactory do
   describe '.create_product' do

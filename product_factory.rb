@@ -3,7 +3,6 @@
 require './product_translator'
 require './product'
 
-# TODO: add tests
 class ProductFactory
   def self.create_product(product_row)
     new(product_row).create_product
